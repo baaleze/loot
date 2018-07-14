@@ -8,39 +8,40 @@ import java.util.stream.Collectors;
 import fr.vahren.loot.Item;
 import fr.vahren.loot.LootGen;
 import fr.vahren.loot.part.terminal.Adjective;
+import fr.vahren.loot.part.terminal.Gear;
 import fr.vahren.loot.part.terminal.Noun;
+import fr.vahren.loot.part.terminal.Qualificatif;
 
-public class NounGroup implements Token {
+/**
+ * QUALIF de NOUN/GEAR
+ *
+ * @author baaleze
+ *
+ */
+public class QualificatifGroup implements Token {
 
-	public StringToken prefix;
-	public StringToken suffix;
-	protected final int nbAdj;
-	protected final Class<? extends Noun> type;
-	protected final Boolean plural;
-	private final int qualifChance;
+	private final Class<? extends Noun> type;
+	private final int nbAdj;
+	private final StringToken pref;
 
-	public NounGroup(StringToken prefix, StringToken suffix, Class<? extends Noun> type, Boolean plural,
-			int qualifChance) {
-		this.nbAdj = LootGen.randomBetween(0, 0, 1, 1, 1, 2, 2, 3);
-		this.prefix = prefix;
-		this.suffix = suffix;
-		this.type = type;
-		this.plural = plural;
-		this.qualifChance = qualifChance;
+	public QualificatifGroup() {
+		this.type = LootGen.random(0, 100) < 50 ? Gear.class : Noun.class;
+		this.nbAdj = LootGen.randomBetween(0, 0, 0, 1, 1, 1, 2, 2);
+		this.pref = new StringToken("de la", "des", "du", "des", "de l'");
 	}
 
 	@Override
-	public String gen(Item item, boolean dontcare, boolean osef, boolean ahah) {
-		return String.join(" ", this.getTokens(item));
+	public String gen(Item item, boolean masculine, boolean plural, boolean vowel) {
+		return "\"" + this.getToken(item, masculine, plural).trim() + "\"";
 	}
 
-	protected List<String> getTokens(Item item) {
+	protected String getToken(Item item, boolean masculineParent, boolean pluralParent) {
 		// get noun
 		final Noun actualNoun = LootGen.getGenerator(this.type).gen();
 
 		// get gender and plurality
 		final boolean masculine = actualNoun.masculine;
-		final boolean plural = this.plural != null ? this.plural.booleanValue() : Math.random() > 0.5;
+		final boolean plural = Math.random() > 0.5;
 		boolean vowel = vowels.contains(actualNoun.get(plural).substring(0, 1));
 
 		// generate strings
@@ -59,10 +60,11 @@ public class NounGroup implements Token {
 			vowel = vowels.contains(adjBef.get(0).masculineSingular.substring(0, 1));
 		}
 
+		final String q = LootGen.getGenerator(Qualificatif.class).gen().gen(item, masculineParent, pluralParent);
+
 		final String n = actualNoun.gen(item, masculine, plural);
 
-		final String pref = this.prefix != null ? this.prefix.gen(item, masculine, plural, vowel) : "";
-		final String suff = this.suffix != null ? this.suffix.gen(item, masculine, plural, vowel) : "";
+		final String pref = this.pref.gen(item, masculine, plural, vowel);
 
 		final String adjAftStr = String.join(" ",
 				adjAft.stream().map(ad -> ad.gen(item, masculine, plural)).collect(Collectors.toList()));
@@ -70,13 +72,8 @@ public class NounGroup implements Token {
 				adjBef.stream().map(ad -> ad.gen(item, masculine, plural)).collect(Collectors.toList()));
 
 		final List<String> tokens = new LinkedList<>();
-		Collections.addAll(tokens, pref, adjBefStr, n, adjAftStr, suff);
-
-		// qualificatif
-		if (LootGen.random(0, 100) < this.qualifChance) {
-			tokens.add(new QualificatifGroup().gen(item, masculine, plural, vowel));
-		}
-
-		return tokens;
+		Collections.addAll(tokens, q, pref, adjBefStr, n, adjAftStr);
+		return String.join(" ", tokens);
 	}
+
 }

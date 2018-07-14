@@ -7,8 +7,8 @@ import fr.vahren.loot.part.terminal.Noun;
 
 public class NumberedNounGroup extends NounGroup {
 
-	public NumberedNounGroup(StringToken prefix, StringToken suffix, Class<? extends Noun> type) {
-		super(prefix, suffix, type, Boolean.TRUE);
+	public NumberedNounGroup(StringToken prefix, StringToken suffix, Class<? extends Noun> type, int qualifChance) {
+		super(prefix, suffix, type, Boolean.TRUE, qualifChance);
 	}
 
 	@Override
