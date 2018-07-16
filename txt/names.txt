@@ -30,7 +30,7 @@ Nægling
 Nandaka
 Précieuse
 Ridill
-ShamshireZomorrodnegar
+Shamshire Zomorrodnegar
 Skofnung
 Sumarbrandr
 Kladenets
@@ -38,8 +38,7 @@ Attila
 Damocles
 Tenka
 Goken
-Thuận
-Thiên
+Thuận Thiên
 Tizona
 Tyrfing
 Totsuka

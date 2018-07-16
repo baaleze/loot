@@ -16,7 +16,7 @@ public class Noun extends Terminal {
     @Override
     public String gen(Item item, boolean masculine, boolean plural) {
         addStatsTagsAndPowers(item);
-        return " " + get(plural);
+        return get(plural);
     }
 
     /**
