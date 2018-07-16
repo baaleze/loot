@@ -14,11 +14,14 @@ public class Adjective extends Terminal {
 
     @Override
     public String gen(Item item, boolean masculine, boolean plural) {
-        this.addStatsTagsAndPowers(item);
-        if (Math.random() < 0.2) {
-            return LootGen.getGenerator(Modifier.class).gen().gen(item, masculine, plural) + " "
+
+        if (Math.random() < 0.3) {
+            final Modifier mod = LootGen.getGenerator(Modifier.class).gen();
+            this.addStatsTagsAndPowers(item, mod.factor);
+            return mod.gen(item, masculine, plural) + " "
                 + this.get(masculine, plural);
         } else {
+            this.addStatsTagsAndPowers(item);
             return this.get(masculine, plural);
         }
     }

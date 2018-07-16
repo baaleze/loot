@@ -1,3 +1,30 @@
 M.serpent.serpents.POISON=5.POISON|ANIMAL.
 M.ours.ours.FORCE=3.ANIMAL.10% de chance de faire peur
 F.biche.biches.VITESSE=2.ANIMAL.
+F.chaise.chaises...+30% dégats par derrière
+M.jokari.jokaris.AGILITE=5..
+F.bouse.bouses.CHARISME=-5.CACA.
+M.poisson.poissons.RESISTANCE_EAU%=20.EAU|ANIMAL.
+F.carpe.carpes.RESISTANCE_EAU%=20|CHARISME=-2.EAU|ANIMAL.
+F.giraffe.giraffes.PERCEPTION=10.ANIMAL.
+M.tapir.tapirs.DEFENSE=10.ANIMAL.
+M.tigre.tigres.DEGAT=10|DEGAT_FEU=10.ANIMAL|FEU.
+M.croc.crocs.DEGAT=5.ANIMAL.Inflige saignement
+M.requin.requins.DEGAT_EAU=10.ANIMAL|EAU.
+F.loutre.loutres.VITESSE=10|SAGESSE=5.ANIMAL|EAU.
+M.singe.singes.DEXTERITE=10.ANIMAL.
+F.mouche.mouches.VITESSE=5|PERCEPTION=2|FORCE=-5.ANIMAL|AIR.
+M.héron.hérons.PERCEPTION=5|SAGESSE=4.ANIMAL|AIR.
+M.martin-pêcheur.martins-pêcheurs.DEGAT=5|DEXTERITE=5|VITESSE=2.ANIMAL|AIR|EAU.
+M.éléphant.éléphants.FORCE=10|VITESSE=-5.ANIMAL.
+M.cercle.cercles.SAGESSE=5.FORME.
+M.triangle.triangles.INTELLIGENCE=3.FORME.
+M.carré.carrés.INTELLIGENCE=4.FORME.
+F.tempête.tempêtes.VITESSE=5|DEGAT_VENT=10.AIR.
+M.démon.démons.DEGAT_FEU=15|FORCE=5.DEMONIAQUE.
+M.ange.anges.DEGAT_DIVIN=5|SAGESSE=10.DIVIN.
+M.caca.cacas.CHARISME=-10.CACA.Shlingue
+M.liberté.libertés..CONCEPT.Ne peut être immobilisé
+M.mort.morts.DEGAT_TENEBRE=30.MORT|TENEBRES.
+M.zombie.zombies.DEGAT_TENEBRE=5|POISON=5|INTELLIGENCE=-15.MORT|TENEBRES.
+M.pet.pets.POISON=2|DEGAT_AIR=5.CACA|AIR.

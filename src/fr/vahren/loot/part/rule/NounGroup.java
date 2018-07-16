@@ -14,7 +14,7 @@ public class NounGroup implements Token {
 
     public StringToken prefix;
     public StringToken suffix;
-    protected final int nbAdj;
+    protected int nbAdj = 0;
     protected final Class<? extends Noun> type;
     protected final Boolean plural;
     private final int qualifChance;
@@ -22,7 +22,6 @@ public class NounGroup implements Token {
 
     public NounGroup(StringToken prefix, StringToken suffix, Class<? extends Noun> type, Boolean plural,
         int qualifChance, int materialChance) {
-        this.nbAdj = LootGen.randomBetween(0, 0, 1, 1, 1, 2, 2, 3);
         this.prefix = prefix;
         this.suffix = suffix;
         this.type = type;
@@ -33,6 +32,7 @@ public class NounGroup implements Token {
 
     @Override
     public String gen(Item item, boolean dontcare, boolean osef, boolean ahah) {
+        this.nbAdj = LootGen.randomBetween(0, 0, 1, 1, 1, 2, 2, 3);
         return String.join(" ", this.getTokens(item));
     }
 

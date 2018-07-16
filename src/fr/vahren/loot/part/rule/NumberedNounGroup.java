@@ -14,7 +14,7 @@ public class NumberedNounGroup extends NounGroup {
     @Override
     protected List<String> getTokens(Item item) {
         final List<String> tokens = super.getTokens(item);
-        tokens.add(1, String.valueOf((int) Math.floor(Math.random() * 1000 + 2)));
+        tokens.add(1, String.valueOf((int) Math.floor(Math.pow((Math.random() * 15 + 1), 2))));
         return tokens;
     }
 }

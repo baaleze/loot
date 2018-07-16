@@ -7,4 +7,17 @@ M.casque.casque.DEFENSE=2.ARMURE|DEFENSIF.
 M.tuba.tubas.RESISTANCE_EAU%=10.EAU.
 M.harpon.harpons.DEGAT=6|PORTEE=10.EAU|ARME|DEUX_MAINS.
 F.lance.lances.DEGAT=8|PORTEE=10.ARME|DEUX_MAINS.
-F.robe.robe.CHARISME=10.HABIT.
+F.robe.robes.CHARISME=10.HABIT.
+F.fléchette.fléchettes.DEXTERITE=2|DEGAT=1.ARME|A_DISTANCE|UNE_MAIN.
+F.sarbacane.sarbacanes.DEGAT=3|POISON=2.ARME|A_DISTANCE|UNE_MAIN.
+M.couteau de lancer.couteaux de lancer.DEGAT=4.ARME|A_DISTANCE|UNE_MAIN.Inflige saignement
+M.couteau à beurre.couteaux à beurre.DEGAT=1.ARME|MELEE|UNE_MAIN.
+M.masque.masques.CHARISME=5.HABIT.
+F.salopette.salopettes.FORCE=2.HABIT.
+M.bavoir.bavoirs.CHARISME=-10.HABIT.Protège des tâches
+F.bretelle.bretelles.CHARISME=-2|VITESSE=2.VIEUX|HABIT.
+F.ceinture.ceintures..ARMURE|HABIT.
+M.sceptre.sceptres.INTELLIGENCE=5.ARME|UNE_MAIN|MELEE.
+M.masse.masses.FORCE=5.ARME|UNE_MAIN|MELEE.20% de chances d'étourdir
+M.hache.haches.FORCE=3.ARME|UNE_MAIN|MELEE.
+M.cimeterre.cimeterres.DEXTERITE=5.ARME|UNE_MAIN|MELEE.Inflige saignement

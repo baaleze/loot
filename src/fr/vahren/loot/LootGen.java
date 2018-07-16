@@ -99,8 +99,8 @@ public class LootGen {
 
     public Item gen() {
         final Item item = new Item();
-        final String res = this.start.gen(item, false, false, false);
-        item.name = res;
+        final String res = this.start.gen(item, false, false, false).trim();
+        item.name = res.substring(0, 1).toUpperCase() + res.substring(1);
         item.checkUnique();
         return item;
     }

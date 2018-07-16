@@ -1,3 +1,8 @@
 tueur.tueurs.tueuse.tueuses.DEGAT=5.MORT.
 mangeur.mangeurs.mangeuse.mangeuses...Soigne 10 PV
 voleur.voleurs.voleuse.voleuses.DISCRETION=10..
+destructeur.destructeurs.destructrice.destructrices.DEGATS=15..5% de tuer en 1 coup
+ami.amis.amie.amies.SAGESSE=5..
+invocateur.invocateurs.invocatrice.invocatrices.INTELLIGENCE=10..
+créateur.créateurs.créatrice.créatrices.INTELLIGENCE=5|SOIN=10..
+annonciateur.annonciateurs.annonciatrice.annonciatrices.CHARISME=5..

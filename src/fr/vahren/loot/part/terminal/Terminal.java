@@ -16,7 +16,11 @@ public abstract class Terminal {
     public abstract void parse(String s);
 
     protected void addStatsTagsAndPowers(Item item) {
-        this.stats.forEach((name, value) -> item.addStat(name, value));
+        addStatsTagsAndPowers(item, 1);
+    }
+
+    protected void addStatsTagsAndPowers(Item item, double factor) {
+        this.stats.forEach((name, value) -> item.addStat(name, (int) (value * factor)));
         this.powers.forEach(p -> item.addPower(p));
         this.tags.forEach(t -> item.addTag(t));
     }
