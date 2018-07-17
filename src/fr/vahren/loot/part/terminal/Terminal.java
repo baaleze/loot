@@ -2,6 +2,7 @@ package fr.vahren.loot.part.terminal;
 
 import fr.vahren.loot.Item;
 import fr.vahren.loot.LootGen;
+import fr.vahren.loot.part.PriceItem;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +13,7 @@ public abstract class Terminal {
     public List<String> tags = new LinkedList<>();
     public Map<String, Integer> stats = new HashMap<>();
     public List<String> powers = new LinkedList<>();
+    public PriceItem price = new PriceItem("+0");
 
     public abstract String gen(Item item, boolean masculine, boolean plural, LootGen lootGen);
 

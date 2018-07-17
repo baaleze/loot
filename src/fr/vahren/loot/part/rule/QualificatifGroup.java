@@ -2,6 +2,7 @@ package fr.vahren.loot.part.rule;
 
 import fr.vahren.loot.Item;
 import fr.vahren.loot.LootGen;
+import fr.vahren.loot.part.Price;
 import fr.vahren.loot.part.terminal.Adjective;
 import fr.vahren.loot.part.terminal.Gear;
 import fr.vahren.loot.part.terminal.Noun;
@@ -27,15 +28,16 @@ public class QualificatifGroup implements Token {
     }
 
     @Override
-    public String gen(Item item, boolean masculine, boolean plural, boolean vowel, LootGen lootGen) {
+    public String gen(Item item, boolean masculine, boolean plural, boolean vowel, LootGen lootGen, Price p) {
         this.type = LootGen.random(0, 100) < 50 ? Gear.class : Noun.class;
         this.nbAdj = LootGen.randomBetween(0, 0, 0, 1, 1, 1, 2, 2);
-        return "\"" + this.getToken(item, masculine, plural, lootGen).trim() + "\"";
+        return "\"" + this.getToken(item, masculine, plural, lootGen, p).trim() + "\"";
     }
 
-    protected String getToken(Item item, boolean masculineParent, boolean pluralParent, LootGen lootGen) {
+    protected String getToken(Item item, boolean masculineParent, boolean pluralParent, LootGen lootGen, Price p) {
         // get noun
         final Noun actualNoun = lootGen.getGenerator(this.type).gen();
+        p.addPrice(actualNoun.price);
 
         // get gender and plurality
         final boolean masculine = actualNoun.masculine;
@@ -53,17 +55,20 @@ public class QualificatifGroup implements Token {
             } else {
                 adjAft.add(a);
             }
+            p.addPrice(a.price);
         }
         if (!adjBef.isEmpty()) {
             vowel = vowels.contains(adjBef.get(0).masculineSingular.substring(0, 1));
         }
 
+        final Qualificatif qualif = lootGen.getGenerator(Qualificatif.class).gen();
         final String q =
-            lootGen.getGenerator(Qualificatif.class).gen().gen(item, masculineParent, pluralParent, lootGen);
+            qualif.gen(item, masculineParent, pluralParent, lootGen);
+        p.addPrice(qualif.price);
 
         final String n = actualNoun.gen(item, masculine, plural, lootGen);
 
-        final String pref = this.pref.gen(item, masculine, plural, vowel, lootGen);
+        final String pref = this.pref.gen(item, masculine, plural, vowel, lootGen, p);
 
         final String adjAftStr = String.join(" ", map(item, lootGen, masculine, plural, adjAft));
         final String adjBefStr = String.join(" ", map(item, lootGen, masculine, plural, adjBef));

@@ -2,6 +2,7 @@ package fr.vahren.loot.part.terminal;
 
 import fr.vahren.loot.Item;
 import fr.vahren.loot.LootGen;
+import fr.vahren.loot.part.PriceItem;
 import java.util.Arrays;
 
 public class Material extends Terminal {
@@ -16,8 +17,8 @@ public class Material extends Terminal {
 
     @Override
     public void parse(String s) {
-        final String[] split = s.split("\\.", 4);
-        if (split.length != 4) {
+        final String[] split = s.split("\\.", 5);
+        if (split.length != 5) {
             throw new IllegalArgumentException(s + " is not a valid Material");
         }
         this.material = split[0];
@@ -33,6 +34,8 @@ public class Material extends Terminal {
 
         // power
         this.powers.addAll(Arrays.asList(split[3].split("\\|")));
+
+        this.price = new PriceItem(split[4]);
     }
 
 }

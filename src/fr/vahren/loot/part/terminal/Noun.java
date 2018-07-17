@@ -2,6 +2,7 @@ package fr.vahren.loot.part.terminal;
 
 import fr.vahren.loot.Item;
 import fr.vahren.loot.LootGen;
+import fr.vahren.loot.part.PriceItem;
 import fr.vahren.loot.part.rule.Token;
 import java.util.Arrays;
 
@@ -26,8 +27,8 @@ public class Noun extends Terminal {
      */
     @Override
     public void parse(String s) {
-        final String[] split = s.split("\\.", 6);
-        if (split.length != 6) {
+        final String[] split = s.split("\\.", 7);
+        if (split.length != 7) {
             throw new IllegalArgumentException(s + " is not a valid Noun");
         }
         // gender
@@ -48,6 +49,8 @@ public class Noun extends Terminal {
 
         // power
         this.powers.addAll(Arrays.asList(split[5].split("\\|")));
+
+        this.price = new PriceItem(split[6]);
     }
 
     public boolean beginsWithVowel() {

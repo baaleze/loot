@@ -2,6 +2,7 @@ package fr.vahren.loot.part.rule;
 
 import fr.vahren.loot.Item;
 import fr.vahren.loot.LootGen;
+import fr.vahren.loot.part.Price;
 import fr.vahren.loot.part.terminal.Adjective;
 import fr.vahren.loot.part.terminal.Material;
 import fr.vahren.loot.part.terminal.Noun;
@@ -30,14 +31,15 @@ public class NounGroup implements Token {
     }
 
     @Override
-    public String gen(Item item, boolean dontcare, boolean osef, boolean ahah, LootGen lootGen) {
+    public String gen(Item item, boolean dontcare, boolean osef, boolean ahah, LootGen lootGen, Price p) {
         this.nbAdj = LootGen.randomBetween(0, 0, 1, 1, 1, 2, 2, 3);
-        return String.join(" ", this.getTokens(item, lootGen));
+        return String.join(" ", this.getTokens(item, lootGen, p));
     }
 
-    protected List<String> getTokens(Item item, LootGen lootGen) {
+    protected List<String> getTokens(Item item, LootGen lootGen, Price p) {
         // get noun
         final Noun actualNoun = lootGen.getGenerator(this.type).gen();
+        p.addPrice(actualNoun.price);
 
         // get gender and plurality
         final boolean masculine = actualNoun.masculine;
@@ -55,6 +57,7 @@ public class NounGroup implements Token {
             } else {
                 adjAft.add(a);
             }
+            p.addPrice(a.price);
         }
         if (!adjBef.isEmpty()) {
             vowel = adjBef.get(0).beginsWithVowel(lootGen);
@@ -62,8 +65,8 @@ public class NounGroup implements Token {
 
         final String n = actualNoun.gen(item, masculine, plural, lootGen);
 
-        final String pref = this.prefix != null ? this.prefix.gen(item, masculine, plural, vowel, lootGen) : "";
-        final String suff = this.suffix != null ? this.suffix.gen(item, masculine, plural, vowel, lootGen) : "";
+        final String pref = this.prefix != null ? this.prefix.gen(item, masculine, plural, vowel, lootGen, p) : "";
+        final String suff = this.suffix != null ? this.suffix.gen(item, masculine, plural, vowel, lootGen, p) : "";
 
         final String adjAftStr = LootGen.join(" ", map(item, lootGen, masculine, plural, adjAft));
         final String adjBefStr = LootGen.join(" ", map(item, lootGen, masculine, plural, adjBef));
@@ -73,12 +76,16 @@ public class NounGroup implements Token {
 
         // qualificatif
         if (LootGen.random(0, 100) < this.qualifChance) {
-            tokens.add(new QualificatifGroup().gen(item, masculine, plural, vowel, lootGen));
+            final Price price = new Price();
+            tokens.add(new QualificatifGroup().gen(item, masculine, plural, vowel, lootGen, price));
+            p.addPrice(price);
         }
         // material
         if (LootGen.random(0, 100) < this.materialChance) {
             // add material
-            tokens.add(4, lootGen.getGenerator(Material.class).gen().gen(item, masculine, plural, lootGen));
+            final Material material = lootGen.getGenerator(Material.class).gen();
+            tokens.add(4, material.gen(item, masculine, plural, lootGen));
+            p.addPrice(material.price);
         }
 
         return tokens;

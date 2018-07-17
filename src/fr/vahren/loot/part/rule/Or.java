@@ -2,6 +2,7 @@ package fr.vahren.loot.part.rule;
 
 import fr.vahren.loot.Item;
 import fr.vahren.loot.LootGen;
+import fr.vahren.loot.part.Price;
 
 public class Or implements Token {
 
@@ -17,10 +18,10 @@ public class Or implements Token {
     }
 
     @Override
-    public String gen(Item item, boolean masculine, boolean plural, boolean vowel, LootGen lootGen) {
+    public String gen(Item item, boolean masculine, boolean plural, boolean vowel, LootGen lootGen, Price p) {
         // choose one at random
         return this.tokens[LootGen.randomIndexWithChancesArray(this.chances)].gen(item, masculine, plural, vowel,
-            lootGen);
+            lootGen, p);
     }
 
 }

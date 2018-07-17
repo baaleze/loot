@@ -1,5 +1,6 @@
 package fr.vahren.loot;
 
+import fr.vahren.loot.part.Price;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class Item {
     public Map<String, Integer> stats = new HashMap<>();
     public List<String> powers = new LinkedList<>();
     public List<String> tags = new LinkedList<>();
+    public Price price;
 
     public void addStat(String stat, int value) {
         if (this.stats.containsKey(stat)) {

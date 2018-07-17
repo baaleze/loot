@@ -2,6 +2,7 @@ package fr.vahren.loot.part.terminal;
 
 import fr.vahren.loot.Item;
 import fr.vahren.loot.LootGen;
+import fr.vahren.loot.part.PriceItem;
 import fr.vahren.loot.part.rule.Token;
 import java.util.Arrays;
 
@@ -35,8 +36,8 @@ public class Adjective extends Terminal {
 
     @Override
     public void parse(String s) {
-        final String[] split = s.split("\\.", 8);
-        if (split.length != 8) {
+        final String[] split = s.split("\\.", 9);
+        if (split.length != 9) {
             throw new IllegalArgumentException(s + " is not a valid Adjective");
         }
         this.goesBefore = "B".equals(split[0]);
@@ -57,6 +58,9 @@ public class Adjective extends Terminal {
 
         // power
         this.powers.addAll(Arrays.asList(split[7].split("\\|")));
+
+        // price
+        this.price = new PriceItem(split[8]);
     }
 
     public boolean beginsWithVowel(LootGen lootGen) {

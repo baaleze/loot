@@ -1,5 +1,6 @@
 package fr.vahren.loot;
 
+import fr.vahren.loot.part.Price;
 import fr.vahren.loot.part.rule.NounGroup;
 import fr.vahren.loot.part.rule.NumberedNounGroup;
 import fr.vahren.loot.part.rule.Optional;
@@ -159,8 +160,10 @@ public class LootGen {
 
     public Item gen() {
         final Item item = new Item();
-        final String res = this.start.gen(item, false, false, false, this).trim();
+        final Price p = new Price();
+        final String res = this.start.gen(item, false, false, false, this, p).trim();
         item.name = res.substring(0, 1).toUpperCase() + res.substring(1);
+        item.price = p;
         item.checkUnique(this);
         return item;
     }

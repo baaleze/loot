@@ -2,6 +2,7 @@ package fr.vahren.loot.part.terminal;
 
 import fr.vahren.loot.Item;
 import fr.vahren.loot.LootGen;
+import fr.vahren.loot.part.PriceItem;
 import java.util.Arrays;
 
 public class Qualificatif extends Terminal {
@@ -25,8 +26,8 @@ public class Qualificatif extends Terminal {
 
     @Override
     public void parse(String s) {
-        final String[] split = s.split("\\.", 7);
-        if (split.length != 7) {
+        final String[] split = s.split("\\.", 8);
+        if (split.length != 8) {
             throw new IllegalArgumentException(s + " is not a valid Qualificatif");
         }
         // singular/plural
@@ -46,6 +47,8 @@ public class Qualificatif extends Terminal {
 
         // power
         this.powers.addAll(Arrays.asList(split[6].split("\\|")));
+
+        this.price = new PriceItem(split[7]);
     }
 
 }
