@@ -1,6 +1,7 @@
 package fr.vahren.loot.part.rule;
 
 import fr.vahren.loot.Item;
+import fr.vahren.loot.LootGen;
 
 public class StringToken implements Token {
 
@@ -20,7 +21,7 @@ public class StringToken implements Token {
     }
 
     @Override
-    public String gen(Item item, boolean masculine, boolean plural, boolean vowel) {
+    public String gen(Item item, boolean masculine, boolean plural, boolean vowel, LootGen lootGen) {
         return masculine
             ? (plural ? this.masculinePlural : (vowel ? this.singularVowel : this.masculineSingular))
             : (plural ? this.femininePlural : (vowel ? this.singularVowel : this.feminineSingular));

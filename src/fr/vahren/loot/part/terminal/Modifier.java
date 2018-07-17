@@ -1,6 +1,7 @@
 package fr.vahren.loot.part.terminal;
 
 import fr.vahren.loot.Item;
+import fr.vahren.loot.LootGen;
 
 public class Modifier extends Terminal {
 
@@ -8,7 +9,7 @@ public class Modifier extends Terminal {
     public double factor;
 
     @Override
-    public String gen(Item item, boolean masculine, boolean plural) {
+    public String gen(Item item, boolean masculine, boolean plural, LootGen lootGen) {
         return this.value;
     }
 

@@ -1,8 +1,9 @@
 package fr.vahren.loot.part.rule;
 
 import fr.vahren.loot.Item;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import fr.vahren.loot.LootGen;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Sequence implements Token {
 
@@ -13,9 +14,12 @@ public class Sequence implements Token {
     }
 
     @Override
-    public String gen(Item item, boolean masculine, boolean plural, boolean vowel) {
-        return String.join(" ", Arrays.asList(this.tokens).stream().map(t -> t.gen(item, masculine, plural, vowel))
-            .collect(Collectors.toList()));
+    public String gen(Item item, boolean masculine, boolean plural, boolean vowel, LootGen lootGen) {
+        final List<String> sequence = new LinkedList<>();
+        for (final Token t : this.tokens) {
+            sequence.add(t.gen(item, masculine, plural, vowel, lootGen));
+        }
+        return LootGen.join(" ", sequence);
     }
 
 }

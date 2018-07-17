@@ -15,11 +15,16 @@ import fr.vahren.loot.part.terminal.Noun;
 import fr.vahren.loot.part.terminal.Qualificatif;
 import fr.vahren.loot.part.terminal.Terminal;
 import fr.vahren.loot.part.terminal.TerminalGenerator;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,35 +33,13 @@ import rita.RiMarkov;
 
 public class LootGen {
 
-    public static Map<Class<? extends Terminal>, TerminalGenerator<? extends Terminal>> generators;
-    public static RiMarkov uniqueGen;
+    // default global instance
+    public static final LootGen gen = defaultLootGenerator();
+
+    public Map<Class<? extends Terminal>, TerminalGenerator<? extends Terminal>> generators;
+    public RiMarkov uniqueGen;
 
     public static void main(String[] args) {
-        generators = new HashMap<>();
-        try {
-            generators.put(Gear.class,
-                new TerminalGenerator<>(Files.readAllLines(Paths.get("txt/gear.txt")), Gear.class));
-            generators.put(Noun.class,
-                new TerminalGenerator<>(Files.readAllLines(Paths.get("txt/nouns.txt")), Noun.class));
-            generators.put(Adjective.class,
-                new TerminalGenerator<>(Files.readAllLines(Paths.get("txt/adjectives.txt")), Adjective.class));
-            generators.put(Qualificatif.class,
-                new TerminalGenerator<>(Files.readAllLines(Paths.get("txt/qualif.txt")), Qualificatif.class));
-            generators.put(Modifier.class,
-                new TerminalGenerator<>(Files.readAllLines(Paths.get("txt/modifier.txt")), Modifier.class));
-            generators.put(Material.class,
-                new TerminalGenerator<>(Files.readAllLines(Paths.get("txt/material.txt")), Material.class));
-            loadUniqueNames();
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
-        final LootGen gen = new LootGen();
-        // the definition is done HERE
-        gen.start = new Sequence(new NounGroup(null, null, Gear.class, Boolean.FALSE, 20, 20), new Optional(new Or(
-            new int[] { 70, 30 },
-            new NounGroup(new StringToken("de la", "des", "du", "des", "de l'"), null, Noun.class, null, 0, 5),
-            new NumberedNounGroup(new StringToken("de la", "des", "du", "des", "de l'"), null, Noun.class, 0, 5)),
-            40));
         int c = 0;
         final Path path = Paths.get("lootResults.json");
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
@@ -78,30 +61,74 @@ public class LootGen {
         }
     }
 
-    private static void loadUniqueNames() throws IOException {
+    public LootGen() {
+        this.generators = new HashMap<>();
+        try {
+            initGenerator(Gear.class, "txt/gear.txt");
+            initGenerator(Noun.class, "txt/nouns.txt");
+            initGenerator(Adjective.class, "txt/adjectives.txt");
+            initGenerator(Qualificatif.class, "txt/qualif.txt");
+            initGenerator(Modifier.class, "txt/modifier.txt");
+            initGenerator(Material.class, "txt/material.txt");
+            loadUniqueNames();
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initGenerator(Class<? extends Terminal> c, String path)
+        throws InstantiationException, IllegalAccessException, IOException {
+        final List<String> allLines = readAllLines(path);
+        this.generators.put(c, new TerminalGenerator<>(allLines, c));
+    }
+
+    private List<String> readAllLines(String path) throws FileNotFoundException, IOException {
+        final List<String> allLines = new LinkedList<>();
+        final File f = new File(path);
+        final BufferedReader b = new BufferedReader(new FileReader(f));
+        String readLine = "";
+        while ((readLine = b.readLine()) != null) {
+            allLines.add(readLine);
+        }
+        b.close();
+        return allLines;
+    }
+
+    public static LootGen defaultLootGenerator() {
+        final LootGen l = new LootGen();
+        l.start = new Sequence(new NounGroup(null, null, Gear.class, Boolean.FALSE, 20, 20), new Optional(new Or(
+            new int[] { 70, 30 },
+            new NounGroup(new StringToken("de la", "des", "du", "des", "de l'"), null, Noun.class, null, 0, 5),
+            new NumberedNounGroup(new StringToken("de la", "des", "du", "des", "de l'"), null, Noun.class, 0, 5)),
+            40));
+        return l;
+    }
+
+    private void loadUniqueNames() throws IOException {
         // unique name generator markov chain
-        uniqueGen = new RiMarkov(3, false, true);
+        this.uniqueGen = new RiMarkov(3, false, true);
         final List<Character> tokens = new LinkedList<>();
-        Files.readAllLines(Paths.get("txt/names.txt")).forEach(name -> {
+        final List<String> names = Files.readAllLines(Paths.get("txt/names.txt"));
+        for (final String name : names) {
             for (final char c : name.toLowerCase().toCharArray()) {
                 tokens.add(c);
             }
-        });
+        }
         final char[] tokensArray = new char[tokens.size()];
         int i = 0;
         for (final Character c : tokens) {
             tokensArray[i++] = c;
         }
-        uniqueGen.loadTokens(tokensArray);
+        this.uniqueGen.loadTokens(tokensArray);
     }
 
     private Token start;
 
     public Item gen() {
         final Item item = new Item();
-        final String res = this.start.gen(item, false, false, false).trim();
+        final String res = this.start.gen(item, false, false, false, this).trim();
         item.name = res.substring(0, 1).toUpperCase() + res.substring(1);
-        item.checkUnique();
+        item.checkUnique(this);
         return item;
     }
 
@@ -132,12 +159,29 @@ public class LootGen {
         return 0;
     }
 
-    public static <T extends Terminal> TerminalGenerator<T> getGenerator(Class<T> c) {
-        return (TerminalGenerator<T>) generators.get(c);
+    public static String join(String delimiter, String[] generateTokens) {
+        return join(delimiter, Arrays.asList(generateTokens));
     }
 
-    public static String generateUniqueName() {
-        String join = String.join("", uniqueGen.generateTokens(LootGen.random(5, 12)));
+    public static String join(String delimiter, List<String> strings) {
+        final StringBuffer buffer = new StringBuffer();
+        int i = 0;
+        for (final String s : strings) {
+            buffer.append(s);
+            if (i < strings.size() - 1) {
+                buffer.append(delimiter);
+            }
+            i++;
+        }
+        return buffer.toString();
+    }
+
+    public <T extends Terminal> TerminalGenerator<T> getGenerator(Class<T> c) {
+        return (TerminalGenerator<T>) this.generators.get(c);
+    }
+
+    public String generateUniqueName() {
+        String join = LootGen.join("", this.uniqueGen.generateTokens(LootGen.random(5, 12)));
         // capitalize
         join = join.substring(0, 1).toUpperCase() + join.substring(1);
         return join;

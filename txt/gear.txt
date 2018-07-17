@@ -18,6 +18,6 @@ M.bavoir.bavoirs.CHARISME=-10.HABIT.Protège des tâches
 F.bretelle.bretelles.CHARISME=-2|VITESSE=2.VIEUX|HABIT.
 F.ceinture.ceintures..ARMURE|HABIT.
 M.sceptre.sceptres.INTELLIGENCE=5.ARME|UNE_MAIN|MELEE.
-M.masse.masses.FORCE=5.ARME|UNE_MAIN|MELEE.20% de chances d'étourdir
-M.hache.haches.FORCE=3.ARME|UNE_MAIN|MELEE.
+F.masse.masses.FORCE=5.ARME|UNE_MAIN|MELEE.20% de chances d'étourdir
+F.hache.haches.FORCE=3.ARME|UNE_MAIN|MELEE.
 M.cimeterre.cimeterres.DEXTERITE=5.ARME|UNE_MAIN|MELEE.Inflige saignement

@@ -1,6 +1,7 @@
 package fr.vahren.loot.part.terminal;
 
 import fr.vahren.loot.Item;
+import fr.vahren.loot.LootGen;
 import java.util.Arrays;
 
 public class Material extends Terminal {
@@ -8,7 +9,7 @@ public class Material extends Terminal {
     private String material;
 
     @Override
-    public String gen(Item item, boolean masculine, boolean plural) {
+    public String gen(Item item, boolean masculine, boolean plural, LootGen lootGen) {
         addStatsTagsAndPowers(item);
         return this.material;
     }

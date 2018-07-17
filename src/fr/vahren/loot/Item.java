@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Item {
 
@@ -45,16 +44,17 @@ public class Item {
             .append(this.name)
             .append("**\\n");
         if (!this.stats.isEmpty()) {
-            sb.append(String.join(" | ",
-                this.stats.keySet().stream().map(s -> {
-                    final String statString =
-                        this.stats.get(s) > 0 ? "+" + this.stats.get(s) : this.stats.get(s).toString();
-                    if (s.endsWith("%")) {
-                        return s.substring(0, s.length() - 1) + " = " + statString + "%";
-                    } else {
-                        return s + " = " + statString;
-                    }
-                }).collect(Collectors.toList())))
+            final List<String> statStrings = new LinkedList<>();
+            for (final String s : this.stats.keySet()) {
+                final String statString =
+                    this.stats.get(s) > 0 ? "+" + this.stats.get(s) : this.stats.get(s).toString();
+                if (s.endsWith("%")) {
+                    statStrings.add(s.substring(0, s.length() - 1) + " = " + statString + "%");
+                } else {
+                    statStrings.add(s + " = " + statString);
+                }
+            }
+            sb.append(LootGen.join(" | ", statStrings))
                 .append("\\n");
         }
         if (!this.powers.isEmpty()) {
@@ -67,9 +67,9 @@ public class Item {
         return sb.toString();
     }
 
-    public void checkUnique() {
+    public void checkUnique(LootGen lootGen) {
         if (this.stats.size() + this.powers.size() + this.tags.size() > UNIQUE_THRESHOLD) {
-            this.uniqueName = LootGen.generateUniqueName();
+            this.uniqueName = lootGen.generateUniqueName();
         }
     }
 

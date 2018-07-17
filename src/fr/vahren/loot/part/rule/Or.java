@@ -5,21 +5,22 @@ import fr.vahren.loot.LootGen;
 
 public class Or implements Token {
 
-	private final Token[] tokens;
-	private final int[] chances;
+    private final Token[] tokens;
+    private final int[] chances;
 
-	public Or(int[] chances, Token... tokens) {
-		if (chances.length != tokens.length) {
-			throw new IllegalArgumentException("there should be one proba for one token");
-		}
-		this.chances = chances;
-		this.tokens = tokens;
-	}
+    public Or(int[] chances, Token... tokens) {
+        if (chances.length != tokens.length) {
+            throw new IllegalArgumentException("there should be one proba for one token");
+        }
+        this.chances = chances;
+        this.tokens = tokens;
+    }
 
-	@Override
-	public String gen(Item item, boolean masculine, boolean plural, boolean vowel) {
-		// choose one at random
-		return this.tokens[LootGen.randomIndexWithChancesArray(this.chances)].gen(item, masculine, plural, vowel);
-	}
+    @Override
+    public String gen(Item item, boolean masculine, boolean plural, boolean vowel, LootGen lootGen) {
+        // choose one at random
+        return this.tokens[LootGen.randomIndexWithChancesArray(this.chances)].gen(item, masculine, plural, vowel,
+            lootGen);
+    }
 
 }

@@ -1,6 +1,7 @@
 package fr.vahren.loot.part.terminal;
 
 import fr.vahren.loot.Item;
+import fr.vahren.loot.LootGen;
 import java.util.Arrays;
 
 public class Noun extends Terminal {
@@ -14,7 +15,7 @@ public class Noun extends Terminal {
     }
 
     @Override
-    public String gen(Item item, boolean masculine, boolean plural) {
+    public String gen(Item item, boolean masculine, boolean plural, LootGen lootGen) {
         addStatsTagsAndPowers(item);
         return get(plural);
     }

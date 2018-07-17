@@ -13,7 +13,7 @@ A.tranquille.tranquilles.tranquille.tranquilles.DEGAT=-2..Soigne en dehors des c
 A.débile.débiles.débile.débiles.INTELLIGENCE=-5.MENTAL.
 A.stupide.stupides.stupide.stupides.INTELLIGENCE=-3.MENTAL.
 A.génial.géniaux.géniale.géniales.INTELLIGENCE=5.MENTAL.
-A.super.supers.super.supers.PRIX%=20|DEGAT=2..
+B.super.supers.super.supers.PRIX%=20|DEGAT=2..
 B.immense.immenses.immense.immenses.VITESSE=-30|DEGAT=30..Nécessite au moins 30 de FORCE
 A.mouillé.mouillés.mouillée.mouillées.RESISTANCE_EAU%=20|RESISTANCE_FOUDRE%=-80.EAU.
 A.sec.secs.sèche.sèches.RESISTANCE_EAU%=-20|DEGAT_FEU=5..

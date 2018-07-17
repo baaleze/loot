@@ -9,7 +9,6 @@ import fr.vahren.loot.part.terminal.Qualificatif;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * QUALIF de NOUN/GEAR
@@ -28,15 +27,15 @@ public class QualificatifGroup implements Token {
     }
 
     @Override
-    public String gen(Item item, boolean masculine, boolean plural, boolean vowel) {
+    public String gen(Item item, boolean masculine, boolean plural, boolean vowel, LootGen lootGen) {
         this.type = LootGen.random(0, 100) < 50 ? Gear.class : Noun.class;
         this.nbAdj = LootGen.randomBetween(0, 0, 0, 1, 1, 1, 2, 2);
-        return "\"" + this.getToken(item, masculine, plural).trim() + "\"";
+        return "\"" + this.getToken(item, masculine, plural, lootGen).trim() + "\"";
     }
 
-    protected String getToken(Item item, boolean masculineParent, boolean pluralParent) {
+    protected String getToken(Item item, boolean masculineParent, boolean pluralParent, LootGen lootGen) {
         // get noun
-        final Noun actualNoun = LootGen.getGenerator(this.type).gen();
+        final Noun actualNoun = lootGen.getGenerator(this.type).gen();
 
         // get gender and plurality
         final boolean masculine = actualNoun.masculine;
@@ -48,7 +47,7 @@ public class QualificatifGroup implements Token {
         final List<Adjective> adjAft = new LinkedList<>();
         Adjective a;
         for (int i = 0; i < this.nbAdj; i++) {
-            a = LootGen.getGenerator(Adjective.class).gen();
+            a = lootGen.getGenerator(Adjective.class).gen();
             if (a.goesBefore) {
                 adjBef.add(a);
             } else {
@@ -59,20 +58,28 @@ public class QualificatifGroup implements Token {
             vowel = vowels.contains(adjBef.get(0).masculineSingular.substring(0, 1));
         }
 
-        final String q = LootGen.getGenerator(Qualificatif.class).gen().gen(item, masculineParent, pluralParent);
+        final String q =
+            lootGen.getGenerator(Qualificatif.class).gen().gen(item, masculineParent, pluralParent, lootGen);
 
-        final String n = actualNoun.gen(item, masculine, plural);
+        final String n = actualNoun.gen(item, masculine, plural, lootGen);
 
-        final String pref = this.pref.gen(item, masculine, plural, vowel);
+        final String pref = this.pref.gen(item, masculine, plural, vowel, lootGen);
 
-        final String adjAftStr = String.join(" ",
-            adjAft.stream().map(ad -> ad.gen(item, masculine, plural)).collect(Collectors.toList()));
-        final String adjBefStr = String.join(" ",
-            adjBef.stream().map(ad -> ad.gen(item, masculine, plural)).collect(Collectors.toList()));
+        final String adjAftStr = String.join(" ", map(item, lootGen, masculine, plural, adjAft));
+        final String adjBefStr = String.join(" ", map(item, lootGen, masculine, plural, adjBef));
 
         final List<String> tokens = new LinkedList<>();
         Collections.addAll(tokens, q, pref, adjBefStr, n, adjAftStr);
         return String.join(" ", tokens);
+    }
+
+    private List<String> map(Item item, LootGen lootGen, final boolean masculine, final boolean plural,
+        final List<Adjective> adjAft) {
+        final List<String> s = new LinkedList<>();
+        for (final Adjective a : adjAft) {
+            s.add(a.gen(item, masculine, plural, lootGen));
+        }
+        return s;
     }
 
 }
