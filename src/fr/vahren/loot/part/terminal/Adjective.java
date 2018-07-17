@@ -2,6 +2,7 @@ package fr.vahren.loot.part.terminal;
 
 import fr.vahren.loot.Item;
 import fr.vahren.loot.LootGen;
+import fr.vahren.loot.part.rule.Token;
 import java.util.Arrays;
 
 public class Adjective extends Terminal {
@@ -11,14 +12,14 @@ public class Adjective extends Terminal {
     public String femininePlural;
     public String masculineSingular;
     public String mascuinePlural;
+    private Modifier mod;
 
     @Override
     public String gen(Item item, boolean masculine, boolean plural, LootGen lootGen) {
 
-        if (Math.random() < 0.3) {
-            final Modifier mod = lootGen.getGenerator(Modifier.class).gen();
-            this.addStatsTagsAndPowers(item, mod.factor);
-            return mod.gen(item, masculine, plural, lootGen) + " "
+        if (this.mod != null) {
+            this.addStatsTagsAndPowers(item, this.mod.factor);
+            return this.mod.gen(item, masculine, plural, lootGen) + " "
                 + this.get(masculine, plural);
         } else {
             this.addStatsTagsAndPowers(item);
@@ -56,6 +57,16 @@ public class Adjective extends Terminal {
 
         // power
         this.powers.addAll(Arrays.asList(split[7].split("\\|")));
+    }
+
+    public boolean beginsWithVowel(LootGen lootGen) {
+        if (Math.random() < 0.3) {
+            this.mod = lootGen.getGenerator(Modifier.class).gen();
+            return Token.vowels.contains(this.mod.value.substring(0, 1));
+        } else {
+            this.mod = null;
+            return Token.vowels.contains(this.mascuinePlural.substring(0, 1));
+        }
     }
 
 }

@@ -5,7 +5,7 @@ import fr.vahren.loot.LootGen;
 
 public class Modifier extends Terminal {
 
-    private String value;
+    public String value;
     public double factor;
 
     @Override

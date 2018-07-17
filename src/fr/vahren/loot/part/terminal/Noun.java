@@ -2,6 +2,7 @@ package fr.vahren.loot.part.terminal;
 
 import fr.vahren.loot.Item;
 import fr.vahren.loot.LootGen;
+import fr.vahren.loot.part.rule.Token;
 import java.util.Arrays;
 
 public class Noun extends Terminal {
@@ -47,6 +48,10 @@ public class Noun extends Terminal {
 
         // power
         this.powers.addAll(Arrays.asList(split[5].split("\\|")));
+    }
+
+    public boolean beginsWithVowel() {
+        return Token.vowels.contains(this.plural.substring(0, 1));
     }
 
 }

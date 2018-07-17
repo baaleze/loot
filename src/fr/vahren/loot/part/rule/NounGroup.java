@@ -42,7 +42,7 @@ public class NounGroup implements Token {
         // get gender and plurality
         final boolean masculine = actualNoun.masculine;
         final boolean plural = this.plural != null ? this.plural.booleanValue() : Math.random() > 0.5;
-        boolean vowel = vowels.contains(actualNoun.get(plural).substring(0, 1));
+        boolean vowel = actualNoun.beginsWithVowel();
 
         // generate strings
         final List<Adjective> adjBef = new LinkedList<>();
@@ -57,7 +57,7 @@ public class NounGroup implements Token {
             }
         }
         if (!adjBef.isEmpty()) {
-            vowel = vowels.contains(adjBef.get(0).masculineSingular.substring(0, 1));
+            vowel = adjBef.get(0).beginsWithVowel(lootGen);
         }
 
         final String n = actualNoun.gen(item, masculine, plural, lootGen);
