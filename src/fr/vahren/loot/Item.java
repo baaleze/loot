@@ -1,5 +1,7 @@
 package fr.vahren.loot;
 
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +18,7 @@ public class Item {
 	public List<String> powers = new LinkedList<>();
 	public List<String> tags = new LinkedList<>();
 	public Price price;
+	public Format formatter = new DecimalFormat("##.##");
 
 	public void addStat(String stat, int value) {
 		if (this.stats.containsKey(stat)) {
@@ -43,7 +46,8 @@ public class Item {
 		if (this.uniqueName != null) {
 			sb.append("***").append(this.uniqueName).append("***\\n");
 		}
-		sb.append("**").append(this.name).append("**\\n");
+		sb.append("**").append(this.name).append("** *").append(this.formatter.format(this.price.compute(0)))
+				.append(" po*\\n");
 		if (!this.stats.isEmpty()) {
 			final List<String> statStrings = new LinkedList<>();
 			for (final String s : this.stats.keySet()) {
