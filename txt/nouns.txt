@@ -16,7 +16,7 @@ M.singe.singes.DEXTERITE=10.ANIMAL..+20
 F.mouche.mouches.VITESSE=5|PERCEPTION=2|FORCE=-5.ANIMAL|AIR..+10
 M.héron.hérons.PERCEPTION=5|SAGESSE=4.ANIMAL|AIR..+20
 M.martin-pêcheur.martins-pêcheurs.DEGAT=5|DEXTERITE=5|VITESSE=2.ANIMAL|AIR|EAU..+40
-M.éléphant.éléphants.FORCE=10|VITESSE=-5.ANIMAL..+20
+M.éléphant.éléphants.CONSTITUTION=15|VITESSE=-5.ANIMAL..+20
 M.cercle.cercles.SAGESSE=5.FORME..+30
 M.triangle.triangles.INTELLIGENCE=3.FORME..+20
 M.carré.carrés.INTELLIGENCE=4.FORME..+20
@@ -24,7 +24,21 @@ F.tempête.tempêtes.VITESSE=5|DEGAT_VENT=10.AIR..+40
 M.démon.démons.DEGAT_FEU=15|FORCE=5.DEMONIAQUE..+80
 M.ange.anges.DEGAT_DIVIN=5|SAGESSE=10.DIVIN..+100
 M.caca.cacas.CHARISME=-10.CACA.Shlingue.-60
-M.liberté.libertés..CONCEPT.Ne peut être immobilisé.+35
+F.liberté.libertés..CONCEPT.Ne peut être immobilisé.+35
 M.mort.morts.DEGAT_TENEBRE=30.MORT|TENEBRES..+30
 M.zombie.zombies.DEGAT_TENEBRE=5|POISON=5|INTELLIGENCE=-15.MORT|TENEBRES..+25
 M.pet.pets.POISON=2|DEGAT_AIR=5.CACA|AIR..-30
+F.maison.maisons.SANTE=30...+50
+M.gouffre.gouffres.DEGAT_TENEBRE=15.TENEBRE..+20
+M.silence.silences.DISCRETION=20...+80
+M.secret.secrets.DISCRETION=10...+50
+M.acrobate.acrobates.DEXTERITE=10...+30
+M.débile.débiles.INTELLIGENCE=-5...-30
+M.magicien.magiciens.INTELLIGENCE=15|DEGAT_MAGIQUE=25...+100
+F.sorcière.sorcières.INTELLIGENCE=10|DEGAT_TENEBRE=30.TENEBRE..+80
+F.merde.merdes.FORCE=-5|POISON=5.CACA..-20
+F.mer.mers.DEGAT_EAU=30.EAU..+70
+M.océan.océans.DEGAT_EAU=50.EAU..+120
+F.terre.terres.DEGAT_TERRE=20.TERRE..+60
+M.sable.sables.RESISTANCE_FEU=30|DEGAT_TERRE=10.TERRE|FEU..+70
+M.désert.déserts.RESISTANCE_FEU=60|DEGAT_TERRE=20.TERRE|FEU..+140

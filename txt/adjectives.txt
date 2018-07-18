@@ -19,8 +19,26 @@ A.mouillé.mouillés.mouillée.mouillées.RESISTANCE_EAU%=20|RESISTANCE_FOUDRE%=
 A.sec.secs.sèche.sèches.RESISTANCE_EAU%=-20|DEGAT_FEU=5...+10
 A.salé.salés.salée.salées...Donne soif.+0
 A.magique.magiques.magique.magiques.DEGAT_MAGIQUE=10|INTELLIGENCE=2...+15
-A.sage.sages.sage.sages.SAGESSE=5...+15
 B.ancien.anciens.ancienne.anciennes.SAGESSE=20|DEGAT=-20.VIEUX..+30
 B.vieux.vieux.vieille.vieilles.DEGAT=-10|PRIX%=-50.VIEUX.50% chance de casser./2
 A.pointu.pointus.pointue.pointues.DEGAT=5..Ignore l'armure.+20
 A.carré.carrés.carrée.carrées.INTELLIGENCE=4|DEGAT=-4.FORME..+10
+A.bleu.bleus.bleue.bleues.RESISTANCE_EAU=3...+5
+A.rouge.rouges.rouge.rouges.RESISTANCE_FEU=3...+5
+A.vert.verts.verte.vertes.POISON=3.POISON..+5
+A.blanc.blancs.blanche.blanches.DEGAT_DIVIN=3...+5
+A.orange.oranges.orange.oranges.DEGAT_FEU=3...+5
+A.noir.noirs.noire.noires.RESISTANCE_TENEBRE=3...+5
+A.gris.gris.grise.grises.DEGAT_TENEBRE=3...+5
+A.rose.roses.rose.roses.CHARISME=3...+5
+A.marron.marrons.marron.marrons.RESISTANCE_TERRE=3...+5
+A.pourpre.pourpres.pourpre.pourpres.INTELLIGENCE=3...+5
+A.violet.violets.violette.violettes.SAGESSE=3...+5
+A.jaune.jaunes.jaune.jaunes.RESISTANCE_FOUDRE=3...+5
+A.silencieux.silencieux.silencieuse.silencieuses.DISCRETION=15...+20
+A.précis.précis.précise.précises.PRECISION=10...+25
+A.glissant.glissants.glissante.glissantes.ESQUIVE=15...+30
+A.séduisant.séduisants.séduisante.séduisantes.CHARISME=5.SEXY.5% de chance de charmer.+60
+A.masqué.masqués.masquée.masquées.DISCRETION=5|CHARISME=5.SEXY..+40
+A.déterminé.déterminés.déterminée.déterminées.CONSTITUTION=10...+15
+A.roboratif.roboratifs.roborative.roboratives.CONSTITUTION=30...+70

@@ -21,3 +21,4 @@ M.sceptre.sceptres.INTELLIGENCE=5.ARME|UNE_MAIN|MELEE..+20
 F.masse.masses.FORCE=5.ARME|UNE_MAIN|MELEE.20% de chances d'étourdir.+20
 F.hache.haches.FORCE=3.ARME|UNE_MAIN|MELEE..+10
 M.cimeterre.cimeterres.DEXTERITE=5.ARME|UNE_MAIN|MELEE.Inflige saignement.+25
+F.cage.cages..OUTIL.Immobilise 1 ennemi.+80

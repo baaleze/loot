@@ -1,8 +1,15 @@
 tueur.tueurs.tueuse.tueuses.DEGAT=5.MORT..+10
 mangeur.mangeurs.mangeuse.mangeuses...Soigne 10 PV.+50
+dévoreur.dévoreurs.dévoreuse.dévoreuses...Soigne 30 PV.+100
 voleur.voleurs.voleuse.voleuses.DISCRETION=10...+50
 destructeur.destructeurs.destructrice.destructrices.DEGATS=15..5% de tuer en 1 coup.+200
 ami.amis.amie.amies.SAGESSE=5...+20
 invocateur.invocateurs.invocatrice.invocatrices.INTELLIGENCE=10...+30
 créateur.créateurs.créatrice.créatrices.INTELLIGENCE=5|SOIN=10...+20
 annonciateur.annonciateurs.annonciatrice.annonciatrices.CHARISME=5...+10
+prophète.prophètes.prophète.prophètes.DEGAT_DIVIN=20.DIVIN..+100
+palpeur.palpeurs.palpeuse.palpeuses.CONSTITUTION=15...+50
+marchand.marchands.marchande.marchandes.PRIX%=-50|CHARISME=15...+180
+défenseur.défenseurs.défenseur.défenseurs.DEFENSE=25...+120
+renifleur.renifleurs.renifleuse.renifleuses.PERCEPTION=15...+80
+lècheur.lècheurs.lècheuse.lècheuses.CHARISME=5.SEXY..+30
